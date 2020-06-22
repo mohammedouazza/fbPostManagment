@@ -2,7 +2,6 @@
 
 namespace App\Console;
 
-use App\Notifications\ScheduleNotification;
 use App\Post;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
@@ -27,15 +26,10 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $schedule->call(function () {
-            $posts = Post::where('status', true)->where('date', date('Y-m-d', time()))->get();
+            $posts = Post::where('status', true)->where('date', date('Y-m-d', time() + (3600 * 24)))->get();
             //dd($posts);
             foreach ($posts as $post) {
-
-                $newPost = $post->publishToPage($post->page->facebook_id, $post->name);
-                //dd($newPost);
-                if ($newPost) {
-                    $post->page->user->notify(new ScheduleNotification($post));
-                }
+                $post->publishToPage($post->page->facebook_id, $post->name);
             }
         })->everyMinute();
     }

@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Notifications\ScheduleNotification;
 use Facebook\Exceptions\FacebookResponseException;
 use Facebook\Exceptions\FacebookSDKException;
 use Facebook\Facebook;
@@ -19,6 +20,7 @@ trait Publishable
             if ($post) {
                 $this->status = false;
                 $this->save();
+                $this->page->user->notify(new ScheduleNotification($this));
             }
             return $post;
         } catch (FacebookSDKException $e) {

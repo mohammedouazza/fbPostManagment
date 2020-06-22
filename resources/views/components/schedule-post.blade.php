@@ -9,7 +9,7 @@
         </div>
         <div class="modal-body">
             <div class="form-group">
-                <input name="date" type="date" class="form-control" value="{{ date('Y-m-d', time()+(3600*24)) }}">
+                <input name="date" type="date" class="form-control">
             </div>
             @error('date')
                 <p class="text-danger">

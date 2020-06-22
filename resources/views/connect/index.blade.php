@@ -27,7 +27,7 @@
                     @else
                         <div class="card-header">
                             Connected as {{ auth()->user()->facebookUser->name }}
-                            <a href="{{ route('connect.reload') }}" class="btn btn-default float-right"> Reload </a>
+                            <x-reload />
                         </div>
                         <div class="card-body">
                             @if(auth()->user()->pages)

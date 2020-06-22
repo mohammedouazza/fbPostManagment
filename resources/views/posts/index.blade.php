@@ -22,6 +22,11 @@
                             {{ session('success') }}
                         </div>
                     @endif
+                    @if (session('error'))
+                        <div class="alert alert-danger" role="alert">
+                            {{ session('error') }}
+                        </div>
+                    @endif
                     @if (session('errors'))
                         <div class="alert alert-danger" role="alert">
                             @foreach ($errors->all() as $message)
@@ -34,6 +39,7 @@
                     <button class="btn btn-primary mb-3" data-toggle="modal" data-target="#createPost">
                         Create Post
                     </button>
+                    <x-reload />
                     @if(! auth()->user()->pages()->where('active', true)->first())
                     <p class="alert alert-warning">
                         No page selected, do it <a href="{{ route('connect.index')}}" class="btn-link">here</a>

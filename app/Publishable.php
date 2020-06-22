@@ -58,4 +58,19 @@ trait Publishable
             return back()->with('error', $e->getMessage());
         }
     }
+
+    public function deleteFromPage()
+    {
+        try {
+            $token = $this->page->user->facebookUser->token;
+            $fb = new Facebook();
+            $fb->setDefaultAccessToken($token);
+            $response = $fb->delete("/" . $this->facebook_id, array(), $this->getPageAccessToken($fb, $this->page->facebook_id));
+        } catch (FacebookSDKException $e) {
+            //dd($e); // handle exception
+            return back()->with('error', $e->getMessage());
+        }
+        $post = $response->getGraphNode();
+        return $post;
+    }
 }

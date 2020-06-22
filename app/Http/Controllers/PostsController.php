@@ -55,7 +55,15 @@ class PostsController extends Controller
 
     public function destroy(Post $post)
     {
-        $post->delete();
-        return back();
+        if ($post->status) {
+            $post->delete();
+            return back()->with('success', 'Scheduled post canceled from page ' . $post->page->name);
+        }
+        $post_deleted = $post->deleteFromPage();
+        if ($post_deleted['success']) {
+            $post->delete();
+            return back()->with('success', 'Post deleted from page ' . $post->page->name);
+        }
+        return back()->with('error', 'Something went wrong');
     }
 }

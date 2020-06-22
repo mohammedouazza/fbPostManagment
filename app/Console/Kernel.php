@@ -37,7 +37,7 @@ class Kernel extends ConsoleKernel
                     $post->page->user->notify(new ScheduleNotification($post));
                 }
             }
-        })->daily();
+        })->everyMinute();
     }
 
     /**

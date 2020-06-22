@@ -38,8 +38,10 @@ class PostsController extends Controller
             if ($post->status) {
                 return back()->with('success', 'Post scheduled to ' . $post->date);
             }
-            $post->publishToPage($page->facebook_id, request()->description);
-
+            $post_published = $post->publishToPage($page->facebook_id, request()->description);
+            //dd($post_published);
+            $post->facebook_id = $post_published['id'];
+            $post->save();
             return back()->with('success', 'Post created');
         } else {
             return back()->with('error', 'Page not found');

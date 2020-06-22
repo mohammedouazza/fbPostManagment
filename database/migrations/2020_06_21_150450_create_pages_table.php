@@ -16,7 +16,7 @@ class CreatePagesTable extends Migration
         Schema::create('pages', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->unsignedBigInteger('facebook_id');
+            $table->longText('facebook_id');
             $table->unsignedBigInteger('user_id');
             $table->boolean('active');
             $table->timestamps();

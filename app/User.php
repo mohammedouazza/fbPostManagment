@@ -50,12 +50,15 @@ class User extends Authenticatable
 
     public function activatePages($pages)
     {
-        //dd($pages);
+        $updated = true;
+
         foreach ($this->pages as $page) {
-            $page->update([
+            $updated = $updated && $page->update([
                 'active' => in_array($page->id, $pages) ? true : false
             ]);
         }
+
+        return $updated;
     }
 
     public function hasPage($page_id)

@@ -5,7 +5,6 @@ namespace App;
 use Facebook\Exceptions\FacebookResponseException;
 use Facebook\Exceptions\FacebookSDKException;
 use Facebook\Facebook;
-use Illuminate\Support\Facades\Auth;
 
 trait Publishable
 {
@@ -23,7 +22,8 @@ trait Publishable
             }
             return $post;
         } catch (FacebookSDKException $e) {
-            dd($e); // handle exception
+            //dd($e); // handle exception
+            return back()->with('error', $e->getMessage());
         }
     }
 
@@ -33,12 +33,14 @@ trait Publishable
             $response = $fb->get('/me/accounts', $this->page->user->facebookUser->token);
         } catch (FacebookResponseException $e) {
             // When Graph returns an error
-            echo 'Graph returned an error: ' . $e->getMessage();
-            exit;
+            return back()->with('error', $e->getMessage());
+            //echo 'Graph returned an error: ' . $e->getMessage();
+            //exit;
         } catch (FacebookSDKException $e) {
             // When validation fails or other local issues
-            echo 'Facebook SDK returned an error: ' . $e->getMessage();
-            exit;
+            return back()->with('error', $e->getMessage());
+            //echo 'Facebook SDK returned an error: ' . $e->getMessage();
+            //exit;
         }
 
         try {
@@ -50,7 +52,8 @@ trait Publishable
                 }
             }
         } catch (FacebookSDKException $e) {
-            dd($e); // handle exception
+            //dd($e); // handle exception
+            return back()->with('error', $e->getMessage());
         }
     }
 }

@@ -34,6 +34,12 @@
                     <button class="btn btn-primary mb-3" data-toggle="modal" data-target="#createPost">
                         Create Post
                     </button>
+                    @if(! auth()->user()->pages()->where('active', true)->first())
+                    <p class="alert alert-warning">
+                        No page selected, do it <a href="{{ route('connect.index')}}" class="btn-link">here</a>
+                    </p>
+                    @endif
+
                     <table class="table">
                         <thead>
                             <th scope="col">Post</th>

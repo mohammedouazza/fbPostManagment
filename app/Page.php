@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Page extends Model
 {
-    protected $fillable = ['active'];
+    protected $guarded = [];
 
     public function posts()
     {

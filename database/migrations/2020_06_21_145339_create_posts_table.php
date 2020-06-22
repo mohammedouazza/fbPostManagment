@@ -18,6 +18,7 @@ class CreatePostsTable extends Migration
             $table->string('name');
             $table->boolean('status');
             $table->date('date');
+            $table->longText('facebook_id')->nullable();
             $table->unsignedBigInteger('page_id');
             $table->timestamps();
         });

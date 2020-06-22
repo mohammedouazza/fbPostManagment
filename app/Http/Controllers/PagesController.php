@@ -11,12 +11,10 @@ class PagesController extends Controller
     {
         //dd(request()->all());
         $pages = array_slice(array_keys(request()->all()), 2);
-        auth()->user()->activatePages($pages);
-        return back();
-        /*foreach (request()->all() as $key => $value) {
-            if ($key != '_method' && $key != '_token') {
-                dd(Page::findOrFail($key));
-            }
-        }*/
+        $updated = auth()->user()->activatePages($pages);
+        if ($updated) {
+            return back()->with('success', 'Pages updated');
+        }
+        return back()->with('error', 'Something went wrong');
     }
 }

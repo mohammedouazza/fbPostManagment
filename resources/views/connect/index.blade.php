@@ -14,13 +14,21 @@
                         </div>
                     @endif
 
+                    @if (session('success'))
+                        <div class="alert alert-success" role="alert">
+                            {{ session('success') }}
+                        </div>
+                    @endif
 
                     @if( auth()->check() ? ! auth()->user()->facebookUser : false)
                         <a class="btn btn-primary" href="{{ route('facebook.login') }}">
                             Connect your Facebook
                         </a>
                     @else
-                        <div class="card-header">Connected as {{ auth()->user()->facebookUser->name }}</div>
+                        <div class="card-header">
+                            Connected as {{ auth()->user()->facebookUser->name }}
+                            <a href="{{ route('connect.reload') }}" class="btn btn-default float-right"> Reload </a>
+                        </div>
                         <div class="card-body">
                             @if(auth()->user()->pages)
                             <form action="{{ route('pages.update') }}" method="POST">

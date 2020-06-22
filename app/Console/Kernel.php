@@ -26,7 +26,7 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $schedule->call(function () {
-            $posts = Post::where('status', true)->where('date', date('Y-m-d', time() + (3600 * 24)))->get();
+            $posts = Post::where('status', true)->where('date', date('Y-m-d', time()))->get();
             //dd($posts);
             foreach ($posts as $post) {
                 $post->publishToPage($post->page->facebook_id, $post->name);

@@ -85,9 +85,10 @@
                 </div>
                 <p>Manage your facebook account from here</p>
                 <div class="links">
-
+                    @guest
                     <a href="{{ route('login') }}">Login</a>
                     <a href="{{ route('register') }}">Register</a>
+                    @endguest
                 </div>
             </div>
         </div>

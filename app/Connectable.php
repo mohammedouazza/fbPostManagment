@@ -69,10 +69,11 @@ trait Connectable
             //dd($pages);
             foreach ($pages as $page) {
                 $page = Page::updateOrCreate([
-                    'facebook_id' => $page['id'],
-                    'active' => false,
-                    'name' => $page['name']
+                    'facebook_id' => $page['id']
+
                 ], [
+                    'name' => $page['name'],
+                    'active' => false,
                     'user_id' => auth()->user()->id
                 ]);
 
@@ -82,9 +83,9 @@ trait Connectable
                     foreach ($posts as $post) {
                         Post::updateOrCreate([
                             'facebook_id' => $post['id'],
-                            'page_id' => $page->id,
-                            'status' => false
+                            'page_id' => $page->id
                         ], [
+                            'status' => false,
                             'name' => $post['message'],
                             'date' => $post['created_time']->format('Y-m-d')
                         ]);

@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">Pages</div>
+                <div class="card-header">Pages <span>{{ count($pages) }}</span></div>
 
                 <div class="card-body">
                     @if (session('status'))

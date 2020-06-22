@@ -27,7 +27,7 @@
                     @else
                         <div class="card-header">
                             Connected as {{ auth()->user()->facebookUser->name }}
-                            <span class="pull-center"> | {{ count(auth()->user()->pages) }} pages</span>
+                            <span class="badge badge-pill badge-primary"> {{ count(auth()->user()->pages) }} pages</span>
                             <x-reload />
                         </div>
                         <div class="card-body">

@@ -26,6 +26,11 @@ class PostsController extends Controller
             'description' => ['required', 'max:255'],
             'page' => ['required', 'exists:pages,id']
         ]);
+        if (request()->date) {
+            request()->validate([
+                'date' => ['after_or_equal:tomorrow']
+            ]);
+        }
 
         $page = auth()->user()->hasPage(request()->page);
         if ($page) {

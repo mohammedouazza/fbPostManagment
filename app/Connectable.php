@@ -78,7 +78,7 @@ trait Connectable
 
                 if ($page) {
                     $posts = $this->getPosts($page->facebook_id);
-                    //dd(gettype($posts[0]['id']));
+                    //dd($posts[0]['id']);
                     foreach ($posts as $post) {
                         Post::updateOrCreate([
                             'facebook_id' => $post['id'],

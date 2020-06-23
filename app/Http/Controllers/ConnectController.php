@@ -23,4 +23,16 @@ class ConnectController extends Controller
 
         return back();
     }
+
+    public function logout()
+    {
+        $facebookUserDeleted = auth()->user()->facebookUser->delete();
+        if ($facebookUserDeleted) {
+            foreach (auth()->user()->pages as $page) {
+                $page->posts()->delete();
+                $page->delete();
+            }
+            return back()->with('success', 'Facebook account disconnected');
+        }
+    }
 }

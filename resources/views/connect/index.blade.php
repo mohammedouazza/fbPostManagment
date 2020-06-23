@@ -1,6 +1,10 @@
 @extends('layouts.app')
 
 @section('content')
+<form action="{{ route('connect.logout') }}" method="POST" id="disconnect-form">
+@csrf
+@method('DELETE')
+</form>
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
@@ -28,7 +32,17 @@
                         <div class="card-header">
                             Connected as {{ auth()->user()->facebookUser->name }}
                             <span class="badge badge-pill badge-primary"> {{ count(auth()->user()->pages) }} pages</span>
+
                             <x-reload />
+                            <button class="btn btn-danger float-center"
+                                onclick="
+                                if(confirm('Are you sure you want to disconnect your facebook account')){
+                                    document.getElementById('disconnect-form').submit();
+                                }
+                                "
+                            >
+                                Disconnect
+                            </button>
                         </div>
                         <div class="card-body">
                             @if(auth()->user()->pages)

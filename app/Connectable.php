@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Exception;
 use Facebook\Exceptions\FacebookResponseException;
 use Facebook\Exceptions\FacebookSDKException;
 use Facebook\Facebook;
@@ -27,21 +28,26 @@ trait Connectable
      */
     public function handleProviderCallback()
     {
-        $auth_user = Socialite::driver('facebook')->stateless()->user();
-        //dd($auth_user);
-        $user = User::updateOrCreate(
-            [
-                'email' => $auth_user->email
-            ],
-            [
-                'token' => $auth_user->token,
-                'name'  =>  $auth_user->name,
-                'facebook_id'  =>  auth()->user()->id
-            ]
-        );
+        try {
 
-        $this->getPages();
-        return redirect(route('connect.index'));
+            $auth_user = Socialite::driver('facebook')->stateless()->user();
+            //dd($auth_user);
+            $user = User::updateOrCreate(
+                [
+                    'email' => $auth_user->email
+                ],
+                [
+                    'token' => $auth_user->token,
+                    'name'  =>  $auth_user->name,
+                    'facebook_id'  =>  auth()->user()->id
+                ]
+            );
+
+            $this->getPages();
+            return redirect(route('connect.index'));
+        } catch (Exception $e) {
+            return redirect(route('connect.index'))->with('error', 'Something went wrong, please try again.');
+        }
         // $user->token;
         //dd($user);
     }

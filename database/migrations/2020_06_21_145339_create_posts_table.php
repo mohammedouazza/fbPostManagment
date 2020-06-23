@@ -19,7 +19,7 @@ class CreatePostsTable extends Migration
             $table->boolean('status');
             $table->date('date');
             $table->string('facebook_id', 255)->nullable();
-            $table->unsignedBigInteger('page_id');
+            $table->foreignId('page_id')->constraint()->onDelete('cascade');
             $table->timestamps();
         });
     }

@@ -28,6 +28,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('connect/facebook', 'ConnectController@redirectToProvider')->name('facebook.login');
     Route::get('connect/facebook/callback', 'ConnectController@handleProviderCallback');
     Route::get('/posts/{page_id}', 'ConnectController@getPosts')->name('page.posts');
+    Route::delete('/connect/logout', 'ConnectController@logout')->name('connect.logout');
     Route::get('/connect', 'ConnectController@index')->name('connect.index');
 
     Route::get('/home', 'AccountController@index')->name('home');

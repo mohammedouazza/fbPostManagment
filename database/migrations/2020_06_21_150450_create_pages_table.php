@@ -17,7 +17,7 @@ class CreatePagesTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('facebook_id', 255)->nullable();
-            $table->unsignedBigInteger('user_id');
+            $table->foreignId('user_id')->constraint()->onDelete('cascade');
             $table->boolean('active');
             $table->timestamps();
         });
